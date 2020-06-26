@@ -1,25 +1,11 @@
 package com.hootsuite.hermes.database
 
 import com.hootsuite.hermes.Config
-import com.hootsuite.hermes.database.model.ReviewEntity
-import com.hootsuite.hermes.database.model.ReviewRequestEntity
-import com.hootsuite.hermes.database.model.ReviewRequests
-import com.hootsuite.hermes.database.model.Reviews
-import com.hootsuite.hermes.database.model.TeamEntity
-import com.hootsuite.hermes.database.model.Teams
-import com.hootsuite.hermes.database.model.UserEntity
-import com.hootsuite.hermes.database.model.Users
-import com.hootsuite.hermes.model.Review
-import com.hootsuite.hermes.model.ReviewRequest
-import com.hootsuite.hermes.model.ReviewState
-import com.hootsuite.hermes.model.Team
-import com.hootsuite.hermes.model.User
+import com.hootsuite.hermes.database.model.*
+import com.hootsuite.hermes.model.*
 import com.hootsuite.hermes.slack.SlackMessageHandler
 import com.hootsuite.hermes.slack.model.SlackUser
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.StdOutSqlLogger
-import org.jetbrains.exposed.sql.and
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
 /**
@@ -35,7 +21,7 @@ object DatabaseUtils {
         Database.connect("jdbc:h2:./test", driver = "org.h2.Driver")
 
         transaction {
-            logger.addLogger(StdOutSqlLogger)
+            addLogger(StdOutSqlLogger)
             SchemaUtils.create(Users)
             SchemaUtils.create(Teams)
             SchemaUtils.create(ReviewRequests)

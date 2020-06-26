@@ -21,8 +21,6 @@ import com.hootsuite.hermes.slack.model.SlashResponse
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.content.file
-import io.ktor.content.static
 import io.ktor.features.CallLogging
 import io.ktor.features.Compression
 import io.ktor.features.ContentNegotiation
@@ -30,6 +28,8 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.file
+import io.ktor.http.content.static
 import io.ktor.request.header
 import io.ktor.request.receive
 import io.ktor.response.respond
@@ -45,7 +45,7 @@ import java.text.DateFormat
 /**
  * Main Entry Point into the ktor Application
  */
-fun main(args: Array<String>) {
+fun main() {
 
     DatabaseUtils.configureDatabase()
 
@@ -103,8 +103,7 @@ fun main(args: Array<String>) {
  * @param call - The ApplicationCall for the request
  */
 suspend fun webhookPost(call: ApplicationCall) {
-    val eventType = call.request.header(Events.EVENT_HEADER) ?: Events.NO_EVENT
-    when (eventType) {
+    when (val eventType = call.request.header(Events.EVENT_HEADER) ?: Events.NO_EVENT) {
         SupportedEvents.PULL_REQUEST_REVIEW.eventName -> GithubEventHandler.pullRequestReview(call.receive())
         SupportedEvents.PULL_REQUEST.eventName -> GithubEventHandler.pullRequest(call.receive())
         SupportedEvents.ISSUE_COMMENT.eventName -> GithubEventHandler.issueComment(call.receive())
