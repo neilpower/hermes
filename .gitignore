@@ -12,3 +12,4 @@ test.mv.db
 test.trace.db
 config.json
 secrets.json
+build/

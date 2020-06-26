@@ -19,6 +19,7 @@ import com.hootsuite.hermes.slack.model.SlackUser
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.StdOutSqlLogger
+import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -35,7 +36,7 @@ object DatabaseUtils {
         Database.connect("jdbc:h2:./test", driver = "org.h2.Driver")
 
         transaction {
-            logger.addLogger(StdOutSqlLogger)
+            addLogger(StdOutSqlLogger)
             SchemaUtils.create(Users)
             SchemaUtils.create(Teams)
             SchemaUtils.create(ReviewRequests)

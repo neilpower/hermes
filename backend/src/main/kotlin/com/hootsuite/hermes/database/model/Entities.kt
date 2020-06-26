@@ -1,8 +1,8 @@
 package com.hootsuite.hermes.database.model
 
-import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
+import org.jetbrains.exposed.dao.id.EntityID
 
 /**
  * Hermes User DAO

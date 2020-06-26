@@ -1,6 +1,6 @@
 package com.hootsuite.hermes.database.model
 
-import org.jetbrains.exposed.dao.IntIdTable
+import org.jetbrains.exposed.dao.id.IntIdTable
 
 /**
  * Users Table

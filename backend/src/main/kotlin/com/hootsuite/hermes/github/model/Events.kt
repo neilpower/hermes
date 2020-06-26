@@ -82,8 +82,10 @@ data class PingEvent(
 enum class IssueCommentAction {
     @SerializedName("created")
     CREATED,
+
     @SerializedName("edited")
     EDITED,
+
     @SerializedName("deleted")
     DELETED
 }
@@ -94,24 +96,34 @@ enum class IssueCommentAction {
 enum class PullRequestAction {
     @SerializedName("assigned")
     ASSIGNED,
+
     @SerializedName("unassigned")
     UNASSIGNED,
+
     @SerializedName("review_requested")
     REVIEW_REQUESTED,
+
     @SerializedName("review_request_removed")
     REVIEW_REQUEST_REMOVED,
+
     @SerializedName("labeled")
     LABELED,
+
     @SerializedName("unlabeled")
     UNLABELED,
+
     @SerializedName("opened")
     OPENED,
+
     @SerializedName("edited")
     EDITED,
+
     @SerializedName("closed")
     CLOSED,
+
     @SerializedName("reopened")
     REOPENED,
+
     // TODO Is this needed, it isn't in the documentation but I see it on the wire
     @SerializedName("synchronize")
     SYNCHRONIZE
@@ -123,8 +135,10 @@ enum class PullRequestAction {
 enum class PullRequestReviewAction {
     @SerializedName("submitted")
     SUBMITTED,
+
     @SerializedName("edited")
     EDITED,
+
     @SerializedName("dismissed")
     DISMISSED
 }
@@ -135,10 +149,13 @@ enum class PullRequestReviewAction {
 enum class StatusState {
     @SerializedName("pending")
     PENDING,
+
     @SerializedName("success")
     SUCCESS,
+
     @SerializedName("failure")
     FAILURE,
+
     @SerializedName("error")
     ERROR
 }
