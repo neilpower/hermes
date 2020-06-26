@@ -1,7 +1,7 @@
 package com.hootsuite.hermes.slack.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.Arrays
+import java.util.*
 
 /**
  * Parameters to Format Slack Messages

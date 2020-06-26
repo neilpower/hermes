@@ -253,6 +253,7 @@ suspend fun installGet(call: ApplicationCall) {
         .httpGet(createSlackQueryParams(call.request.queryParameters["code"]))
         .responseObject<SlackAuth>()
 
+    // TODO Handle non-200
     if (response.statusCode == HttpStatusCode.OK.value) {
         val (slackAuth, _) = result
         slackAuth?.incomingWebhook?.let { webhook ->
@@ -274,8 +275,6 @@ suspend fun installGet(call: ApplicationCall) {
                 // TODO Proper Error Case
             }
         } ?: call.respondText("Didn't get the right slack object sorry", ContentType.Text.Html, HttpStatusCode.OK)
-    } else {
-        // TODO Handle non-200
     }
 }
 

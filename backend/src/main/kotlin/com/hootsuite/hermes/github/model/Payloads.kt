@@ -1,7 +1,7 @@
 package com.hootsuite.hermes.github.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.Arrays
+import java.util.*
 
 /**
  * Github Comment Model Object
@@ -102,8 +102,10 @@ data class Webhook(
 enum class ApprovalState {
     @SerializedName("approved")
     APPROVED,
+
     @SerializedName("changes_requested")
     CHANGES_REQUESTED,
+
     @SerializedName("commented")
     COMMENTED
 }

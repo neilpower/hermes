@@ -81,6 +81,7 @@ data class SlashResponse(
     enum class ResponseType {
         @SerializedName("in_channel")
         IN_CHANNEL,
+
         @SerializedName("ephemeral")
         EPHEMERAL
     }
