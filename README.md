@@ -1,4 +1,4 @@
-# Hermes
+# Hermes Demo
 
 ## Table of Contents ##
 * [What is Hermes?](#TOC-WhatIsHermes)
