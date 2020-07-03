@@ -89,21 +89,34 @@ These instructions are likely to change as the method of distributing Hermes is 
 
 ### <a name="TOC-SlackSetup"></a>Slack Setup
 
-TODO - Detailed instructions on how to create a version of the slack app for your workspace.
+You will need to create a Slack Application which has the following Bot Token Scopes
+* Slash Commands
+* Incoming Webhooks
+
+Create a channel called #hermes-admin in your Slack workspace and install the app to this channel. Debug messages will be sent to this channel. 
+
+Create a file called `secrets.json` in the `backend/src/main/resources` directory. The file should contain a JSON object with two keys.
+
+```json
+{
+  "clientId": "<client id from the basic information section of the Slack App>",
+  "secret": "<client secret from the basic information section of the Slack App>"
+}
+```
+
+Create a file called `config.json`  in the `backend/src/main/resources` directory. The file should contain a JSON object like the following
+
+```json
+{
+  "adminUrl": "<The Webhook URL of the admin channel from the Incoming Webhooks section of the Slack App>"
+}
+```
 
 ### <a name="TOC-Running"></a>Running Hermes
 
-Hermes uses ktor and is built with gradle.
+Hermes uses ktor and is built with gradle. Kotless deploys the application to a Lambda function in AWS.
 
-Hermes requires some configuration files in order to connect to your Slack App.
-
-TODO - Configuration File Examples
-
-After setting up the configuration files, you can run the code by navingating to the `backend` directory and typing `../gradlew run` into the console.
-
-This will start the ktor application on the port you configured in the step above. To ensure that Hermes is running, you can navigate to `localhost:8080`
-
-The first time that you run Hermes, a database will be created and configured. Hermes uses Jetbrains' [Exposed](https://github.com/JetBrains/Exposed) library to manage its database.
+After setting up the configuration files, you can run the code by deploying kotless to AWS using the `kotless` `deploy` task in the `backend` module.  
 
 When Hermes is running, it will send status messages to the Slack Channel that you configured in the above step.
 
@@ -133,11 +146,7 @@ Hermes uses two data structures for routing github events to slack: `Users` and 
 
 A team is a Slack Channel where Hermes messages are sent. Each team has one or more users. 
 
-A user is a binding of a Github username to a Slack handle and a Hermes team. A user registers a Slack handle to a particular team where messages targeted at them will be sent.
-
-Currently, the options to register users and teams can be done on a static frontend and through Slack.
-
-One of the upcoming features of Hermes is a React frontend, built with the [kotlin-frontend-plugin](https://github.com/Kotlin/kotlin-frontend-plugin). For now, the static html can be used.
+A user is a binding of a Github username to a Slack handle and a Hermes team. A user registers a Slack handle to a particular team where messages targeted at them will be sent. 
 
 ### <a name="TOC-Teams"></a>Register Teams ##
 
@@ -149,41 +158,24 @@ Now that you have configured a team, you can add users to the team.
 
 ### <a name="TOC-Users"></a>Register Users ##
 
-There are currently two ways to register a User to Hermes. In the future, the React frontend with the [kotlin-frontend-plugin](https://github.com/Kotlin/kotlin-frontend-plugin) will be used to register users. For now, you can use the static html page.
-
-You can add a user by filling out the form on the `/registerUser.html` path. 
-
-A user enters their Github name, Slack handle, Team name (configured in the previous step), and optionally an Avatar URL.
-
-The other way to register a user is in Slack itself.
-
-While in the channel that was configured in the previous step, a user can register to that team by using a Slack slash command.
+In the channel that was configured in the previous step, a user can register to that team by using a Slack slash command.
 
 Enter `/hermes register <github-name>` in the channel (with your Github name). A status message as well as a response to the slack command will be sent to slack.
 
 Now that you have users registered, you are ready to use Hermes! Check out the [Features](#TOC-Features) section to see what you can do!
 
-## <a name="TOC-Administration"></a>Administering Hermes ##
-
-TODO
-
 ## <a name="TOC-Future"></a>Future Features ##
 
-These are some features which are planned to be added to Hermes. Please feel free to make a feature request by adding a Issue to this repo.
+These are some features which may be added to Hermes. Please feel free to make a feature request by adding an Issue to this repo.
 * Track the mean time to resolution for pull requests.
-* Better front-end interface for registering users (React frontend with the [kotlin-frontend-plugin](https://github.com/Kotlin/kotlin-frontend-plugin))
 * Allow the user to toggle on or off notifications
-* Add a Bot user for people to recieve private messages.
-* Tests!
+* Add a Bot user for people to receive private messages.
 * Messaging the user who configured a webhook if possible when the webhook is misconfigured.
 * Subscribe to specific hermes events.
 * Control your hermes subscription through slack.
 * Change formatting of messages to be more compact
 
 ## <a name="TOC-License"></a>License ##
-
-License
-Copyright 2017 Hootsuite (developer.products@hootsuite.com)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 

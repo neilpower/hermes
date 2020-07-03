@@ -26,7 +26,7 @@ object SlashCommandHandler {
                 }
                 if (parameters.size == 1) {
                     DatabaseUtils.createOrUpdateUserByGithubName(User(parameters.first(), slashCommand.username, team))
-                    if (DatabaseUtils.getTeamOrNull(team) != null) {
+                    if (DatabaseUtils.getTeamOrNull(team)) {
                         "You have successfully registered to $team"
                     } else {
                         "$team is not registered, please register that team with Hermes."
@@ -37,8 +37,7 @@ object SlashCommandHandler {
             }
             SlashCommand.UNREGISTER -> {
                 if (parameters.isEmpty()) {
-                    val count = DatabaseUtils.deleteUsersBySlackHandle(slashCommand.username)
-                    when (count) {
+                    when (val count = DatabaseUtils.deleteUsersBySlackHandle(slashCommand.username)) {
                         0 -> "Cannot find a user for your slack handle, it seems you're not registered."
                         else -> "Successfully unregistered $count associated Github Users."
                     }

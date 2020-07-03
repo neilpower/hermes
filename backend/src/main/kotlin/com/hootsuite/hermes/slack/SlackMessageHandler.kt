@@ -4,25 +4,26 @@ import com.github.kittinunf.fuel.Fuel
 import com.google.gson.Gson
 import com.hootsuite.hermes.slack.model.SlackParams
 import com.hootsuite.hermes.slack.model.SlackUser
+import org.slf4j.LoggerFactory
 
 /**
  * Object to handle sending various messages to Slack
  */
 object SlackMessageHandler {
 
+    private val logger = LoggerFactory.getLogger(this::class.java)
+
     /**
      * Send messages to slack with given params
      * @param params - The parameters of the message to Send to Slack
      */
     private fun sendToSlack(url: String, params: SlackParams) {
-        Fuel
+        val response = Fuel
             .post(url)
             .body(Gson().toJson(params))
-            .response { _, response, result ->
-                println(response)
-                println(result)
-                //TODO Handle Response and Result
-            }
+            .responseString()
+            .second
+        logger.debug(response.toString())
     }
 
     // User Messages

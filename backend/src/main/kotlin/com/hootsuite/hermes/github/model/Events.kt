@@ -79,6 +79,7 @@ data class PingEvent(
 /**
  * The possible states of a Github Issue Comment Event
  */
+@Suppress("unused")
 enum class IssueCommentAction {
     @SerializedName("created")
     CREATED,
@@ -93,6 +94,7 @@ enum class IssueCommentAction {
 /**
  * Possible States for the Action of a Pull Request Event
  */
+@Suppress("unused")
 enum class PullRequestAction {
     @SerializedName("assigned")
     ASSIGNED,
@@ -124,7 +126,6 @@ enum class PullRequestAction {
     @SerializedName("reopened")
     REOPENED,
 
-    // TODO Is this needed, it isn't in the documentation but I see it on the wire
     @SerializedName("synchronize")
     SYNCHRONIZE
 }
@@ -132,6 +133,7 @@ enum class PullRequestAction {
 /**
  * The possible states of a Github Review Event
  */
+@Suppress("unused")
 enum class PullRequestReviewAction {
     @SerializedName("submitted")
     SUBMITTED,
@@ -146,6 +148,7 @@ enum class PullRequestReviewAction {
 /**
  * The Possible states of a Github Status Event
  */
+@Suppress("unused")
 enum class StatusState {
     @SerializedName("pending")
     PENDING,

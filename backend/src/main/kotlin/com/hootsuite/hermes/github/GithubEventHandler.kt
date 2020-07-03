@@ -17,6 +17,7 @@ import com.hootsuite.hermes.model.Review
 import com.hootsuite.hermes.model.ReviewRequest
 import com.hootsuite.hermes.model.ReviewState
 import com.hootsuite.hermes.slack.SlackMessageHandler
+import org.slf4j.LoggerFactory
 
 /**
  * Object to handle events from Github webhooks
@@ -124,8 +125,6 @@ object GithubEventHandler {
                 commentEvent.issue.user.login,
                 argumentList
             )
-        } else {
-            // TODO Handle Other Actions?
         }
     }
 
@@ -193,7 +192,7 @@ object GithubEventHandler {
      */
     fun ping(pingEvent: PingEvent) {
         val extraEvents = pingEvent.hook.events
-            .filterNot { it in SupportedEvents.values().map { it.eventName } }
+            .filterNot { event -> event in SupportedEvents.values().map { it.eventName } }
         val missingEvents = SupportedEvents.values()
             .filterNot { it == SupportedEvents.PING }
             .map { it.eventName }

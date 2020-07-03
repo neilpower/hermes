@@ -1,7 +1,6 @@
 package com.hootsuite.hermes.slack.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 /**
  * Parameters to Format Slack Messages
@@ -9,7 +8,6 @@ import java.util.*
 data class SlackParams(
     @SerializedName("icon_emoji")
     val iconEmoji: String? = null,
-    // TODO Override hashcode and equals?
     val attachments: Array<Attachment>,
     @SerializedName("link_names")
     val linkNames: Int = 0
@@ -400,7 +398,7 @@ data class SlackParams(
         other as SlackParams
 
         if (iconEmoji != other.iconEmoji) return false
-        if (!Arrays.equals(attachments, other.attachments)) return false
+        if (!attachments.contentEquals(other.attachments)) return false
         if (linkNames != other.linkNames) return false
 
         return true
@@ -412,7 +410,7 @@ data class SlackParams(
      */
     override fun hashCode(): Int {
         var result = iconEmoji?.hashCode() ?: 0
-        result = 31 * result + Arrays.hashCode(attachments)
+        result = 31 * result + attachments.contentHashCode()
         result = 31 * result + linkNames
         return result
     }
