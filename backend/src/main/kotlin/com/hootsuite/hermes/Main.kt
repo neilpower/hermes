@@ -64,7 +64,7 @@ class Server : Kotless() {
                 }
 
                 // Webhooks from Github
-                post("/webhook") { webhookPost(call) }
+                post("/github") { githubPost(call) }
 
                 // Install Slack App
                 get("/install") { installGet(call) }
@@ -79,7 +79,7 @@ class Server : Kotless() {
      * Handle the POST to the /webhook Endpoint
      * @param call - The ApplicationCall for the request
      */
-    private suspend fun webhookPost(call: ApplicationCall) {
+    private suspend fun githubPost(call: ApplicationCall) {
         when (val eventType = call.request.header(Events.EVENT_HEADER) ?: Events.NO_EVENT) {
             SupportedEvents.PULL_REQUEST_REVIEW.eventName -> GithubEventHandler.pullRequestReview(call.receive())
             SupportedEvents.PULL_REQUEST.eventName -> GithubEventHandler.pullRequest(call.receive())

@@ -26,7 +26,7 @@ object SlashCommandHandler {
                 }
                 if (parameters.size == 1) {
                     DatabaseUtils.createOrUpdateUserByGithubName(User(parameters.first(), slashCommand.username, team))
-                    if (DatabaseUtils.getTeamOrNull(team)) {
+                    if (DatabaseUtils.doesTeamExist(team)) {
                         "You have successfully registered to $team"
                     } else {
                         "$team is not registered, please register that team with Hermes."

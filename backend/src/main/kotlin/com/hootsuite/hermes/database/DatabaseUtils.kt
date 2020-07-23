@@ -87,11 +87,9 @@ object DatabaseUtils {
     }
 
     /**
-     * Gets a team from the database or null if the team does not exist
-     * @param team - The name of the team to lookup
-     * @return true if the team exists, false otherwise
+     * Returns true if a [team] with the provided name exists, false otherwise
      */
-    fun getTeamOrNull(team: String): Boolean {
+    fun doesTeamExist(team: String): Boolean {
         val req = GetItemRequest().withKey(mapOf(
             "teamName" to AttributeValue().apply { s = team }
         )).withTableName(TEAMS_TABLE)

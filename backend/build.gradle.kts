@@ -1,4 +1,3 @@
-import io.kotless.plugin.gradle.dsl.Webapp.Route53
 import io.kotless.plugin.gradle.dsl.kotless
 
 plugins {
@@ -49,17 +48,12 @@ dependencies {
 
 kotless {
     config {
-        bucket = "hermesapp-test"
+        bucket = "hermesapp"
 
         terraform {
             profile = "default"
             region = "us-west-2"
         }
-    }
-
-    webapp {
-        // Optional parameter, by default technical name will be generated
-        // route53 = Route53("kotless", "example.com")
     }
 
     extensions {
@@ -69,7 +63,7 @@ kotless {
 
         terraform {
             files {
-                add(file("src/main/tf/extensions.tf"))
+                add(file("tf/extensions.tf"))
             }
         }
     }
