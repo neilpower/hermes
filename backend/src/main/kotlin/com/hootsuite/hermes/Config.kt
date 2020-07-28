@@ -1,7 +1,6 @@
 package com.hootsuite.hermes
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import java.io.File
 
 /**
@@ -14,11 +13,8 @@ object Config {
 
     const val SLACK_AUTH_URL = "https://slack.com/api/oauth.access"
 
-    var configData: ConfigData = Gson().fromJson<ConfigData>(File(CONFIG_PATH).readText(), ConfigData::class.java)
-        set(value) {
-            File(CONFIG_PATH).writeText(GsonBuilder().setPrettyPrinting().create().toJson(value))
-            field = value
-        }
+    private val configData: ConfigData =
+        Gson().fromJson<ConfigData>(File(CONFIG_PATH).readText(), ConfigData::class.java)
 
     val authData: AuthData = Gson().fromJson<AuthData>(File(SECRETS_PATH).readText(), AuthData::class.java)
 
@@ -29,42 +25,14 @@ object Config {
     // Admin Channel to send Hermes Status messages to
     val ADMIN_CHANNEL = configData.adminChannel ?: "#hermes-admin"
 
-    // Port for the Server to run on
-    val SERVER_PORT = configData.serverPort ?: 8080
-
     // Trigger Comment for sending review request updates
-    val REREVIEW = configData.rereview?.command ?: "!hermes"
+    const val REREVIEW = "!hermes"
 
     // Parameter passed to rereview command to only notify people who have requested changes to the pull request
-    val REJECTED = configData.rereview?.rejected ?: "rejected"
+    const val REJECTED = "rejected"
 
     // Parameter passed to rereview command to only notify people who have not approved the pull request
-    val UNAPPROVED = configData.rereview?.unapproved ?: "unapproved"
-
-    /**
-     * Supported Endpoints
-     */
-    object Endpoint {
-        const val ROOT = "/"
-        const val WEBHOOK = "/webhook"
-        const val USERS = "/users"
-        const val REGISTER_USER = "/registerUser"
-        const val TEAMS = "/teams"
-        const val REGISTER_TEAM = "/registerTeam"
-        const val REVIEW_REQUESTS = "/reviewRequests"
-        const val REVIEWS = "/reviews"
-        const val INSTALL = "/install"
-        const val SLACK = "/slack"
-    }
-
-    /**
-     * Static pages being served
-     */
-    object StaticPages {
-        const val REGISTER_USER_PAGE = "registerUser.html"
-        const val REGISTER_TEAM_PAGE = "registerTeam.html"
-        const val INSTALL = "install.html"
-    }
+    const val UNAPPROVED = "unapproved"
 }
 
 /**

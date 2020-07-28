@@ -1,7 +1,6 @@
 package com.hootsuite.hermes.github.model
 
 import com.google.gson.annotations.SerializedName
-import java.util.Arrays
 
 /**
  * Github Comment Model Object
@@ -80,7 +79,7 @@ data class Webhook(
         other as Webhook
 
         if (name != other.name) return false
-        if (!Arrays.equals(events, other.events)) return false
+        if (!events.contentEquals(other.events)) return false
 
         return true
     }
@@ -91,7 +90,7 @@ data class Webhook(
      */
     override fun hashCode(): Int {
         var result = name.hashCode()
-        result = 31 * result + Arrays.hashCode(events)
+        result = 31 * result + events.contentHashCode()
         return result
     }
 }
@@ -102,8 +101,10 @@ data class Webhook(
 enum class ApprovalState {
     @SerializedName("approved")
     APPROVED,
+
     @SerializedName("changes_requested")
     CHANGES_REQUESTED,
+
     @SerializedName("commented")
     COMMENTED
 }

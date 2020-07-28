@@ -78,9 +78,11 @@ data class SlashResponse(
         fun ephemeral(text: String) = SlashResponse(ResponseType.EPHEMERAL, text)
     }
 
+    @Suppress("unused")
     enum class ResponseType {
         @SerializedName("in_channel")
         IN_CHANNEL,
+
         @SerializedName("ephemeral")
         EPHEMERAL
     }
